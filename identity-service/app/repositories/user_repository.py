@@ -21,3 +21,10 @@ class UserRepository:
     
     def get_user_by_email(self, email: str) -> User | None:
         return self.session.query(User).filter(User.email == email).first()
+
+    def get_user_by_id(self, user_id: str) -> User | None:
+        return self.session.query(User).filter(User.id == user_id).first()
+    
+    def change_password(self, user: User, new_password: str) -> None:
+        user.hashed_password = new_password
+        self.session.commit()
